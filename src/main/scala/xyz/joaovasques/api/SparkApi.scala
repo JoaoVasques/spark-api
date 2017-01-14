@@ -1,16 +1,10 @@
 package xyz.joaovasques.sparkapi.actors
 
-import akka.http.scaladsl.model.{ ContentTypes, HttpEntity }
-import akka.http.scaladsl.model.HttpHeader.ParsingResult
-import akka.http.scaladsl.model.{ HttpHeader, ResponseEntity }
 import scala.concurrent.Future
 
 import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.client.RequestBuilding
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
-import akka.http.scaladsl.model.StatusCodes._
-import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
@@ -24,7 +18,7 @@ private[actors] trait SparkApi {
   val port: Int
 
   def submitJob(request: SubmitJob): Future[SparkJobSumissionResponse]
-  def checkJobStatus(driverId: String): Future[SparkResponse]
+  def checkJobStatus(driverId: String): Future[SparkJobStatusResponse]
   def killJob(driverId: String): Future[SparkResponse]
 }
 
@@ -43,10 +37,11 @@ case class SparkApiStandlone(
 
 
   private val submitJobInteractor = new SubmitJobInteractor(apiRequest, master, apiVersion)
+  private val jobStatusInteractor = new CheckJobStatusInteractor(apiRequest, master, apiVersion)
 
   def submitJob(req: SubmitJob): Future[SparkJobSumissionResponse] = submitJobInteractor.call(req)
 
-  def checkJobStatus(driverId: String): Future[SparkResponse] = ???
+  def checkJobStatus(driverId: String): Future[SparkJobStatusResponse] = jobStatusInteractor.call(driverId)
 
   def killJob(driverId: String): Future[SparkResponse] = ???
 }

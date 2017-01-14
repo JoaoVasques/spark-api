@@ -11,7 +11,7 @@ trait JsonHelpers {
       ("action" -> "CreateSubmissionRequest") ~
         ("appArgs" -> request.arguments) ~
         ("appResource" -> request.jarLocation) ~
-        ("clientSparkVersion" -> "1.6,1") ~ //TODO Change
+        ("clientSparkVersion" -> "2.1.0") ~ //TODO Change
         ("environmentVariables" -> ("SPARK_ENV_LOADED" -> 1)) ~ //TODO add envars on the request
         ("mainClass" -> request.mainClass) ~
         ("sparkProperties" ->

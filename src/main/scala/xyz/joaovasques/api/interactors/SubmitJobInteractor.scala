@@ -7,7 +7,6 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.http.scaladsl.model.{ HttpHeader, ResponseEntity }
 import akka.http.scaladsl.model.HttpHeader.ParsingResult
-import akka.http.scaladsl.Http
 import akka.http.scaladsl.client.RequestBuilding
 import akka.http.scaladsl.model.{ ContentTypes, HttpEntity }
 import xyz.joaovasques.sparkapi.helpers._
