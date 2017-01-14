@@ -1,0 +1,53 @@
+package xyz.joaovasques.sparkapi.actors
+
+import akka.http.scaladsl.model.{ ContentTypes, HttpEntity }
+import akka.http.scaladsl.model.HttpHeader.ParsingResult
+import akka.http.scaladsl.model.{ HttpHeader, ResponseEntity }
+import scala.concurrent.Future
+
+import akka.actor.{ActorRef, ActorSystem}
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.client.RequestBuilding
+import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
+import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.unmarshalling.Unmarshal
+import akka.stream.ActorMaterializer
+import akka.stream.scaladsl.{Flow, Sink, Source}
+import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
+import xyz.joaovasques.sparkapi.helpers._
+import xyz.joaovasques.sparkapi.api._
+
+private[actors] trait SparkApi {
+
+  type ApiResponse = (SparkResponse, ActorRef)
+
+  val port: Int
+
+  def submitJob(request: SubmitJob): Future[SparkJobSumissionResponse]
+  def checkJobStatus(driverId: String): Future[SparkResponse]
+  def killJob(driverId: String): Future[SparkResponse]
+}
+
+case class SparkApiStandlone(
+  master: String, apiVersion: String = "v1"
+)(implicit system: ActorSystem) extends SparkApi with JsonHelpers {
+
+  override val port = 6066
+  private implicit val materializer = ActorMaterializer()
+
+  private lazy val connectionFlow: Flow[HttpRequest, HttpResponse, Any] =
+    Http().outgoingConnection(master, port)
+
+  private def apiRequest(request: HttpRequest): Future[HttpResponse] =
+    Source.single(request).via(connectionFlow).runWith(Sink.head)
+
+
+  private val submitJobInteractor = new SubmitJobInteractor(apiRequest, master, apiVersion)
+
+  def submitJob(req: SubmitJob): Future[SparkJobSumissionResponse] = submitJobInteractor.call(req)
+
+  def checkJobStatus(driverId: String): Future[SparkResponse] = ???
+
+  def killJob(driverId: String): Future[SparkResponse] = ???
+}
+

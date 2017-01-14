@@ -12,11 +12,11 @@ class SparkActor(sparkMaster: String, sparkApi: SparkApi) extends Actor with Act
   def active(jobs: Vector[String]): Receive = {
     case r: SubmitJob =>
       val originaSender = sender
+      log.info(s"Submit job ${r.name}")
       sparkApi submitJob(r) pipeTo originaSender
 
     case JobStatus(driverId) =>
       val originaSender = sender
-      println("got a job status message from " + originaSender)
       sparkApi checkJobStatus(driverId) pipeTo originaSender
 
     case KillJob(driverId) =>

@@ -10,8 +10,8 @@ class SparkApiStandloneSpec extends TestKit(ActorSystem("MySpec")) with Implicit
 
   private val masterIp = "127.0.0.1"
   private val sparkActor = system.actorOf(Props(new SparkActor("master", SparkApiStandlone(masterIp))), "spark-actor-test")
-  private val validJob = SubmitJob("name", Set(), "jar", Map())
-  private val invalidJob = SubmitJob("invalid-name", Set(), "no-jar", Map())
+  private val validJob = SubmitJob("name", "main-class" ,Set(), "jar", Map())
+  private val invalidJob = SubmitJob("invalid-name", "main-class", Set(), "no-jar", Map())
 
   describe("SparkApi for Standlone Spark Cluster") {
     describe("when having an existing job") {

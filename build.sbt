@@ -6,6 +6,8 @@ scalaVersion := "2.11.8"
 
 val akkaVersion = "2.4.11"
 
+val json = "3.4.2"
+
 // Change this to another test framework if you prefer
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.6" % "test",
@@ -16,6 +18,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % Test,
-  "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test
+  "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
+  "org.json4s" %% "json4s-native" % json
 )
 
