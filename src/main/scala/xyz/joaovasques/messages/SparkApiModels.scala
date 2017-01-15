@@ -33,12 +33,19 @@ object SparkApiMessages extends SprayJsonSupport with DefaultJsonProtocol {
     workerId: String
   ) extends SparkApiProtocol with SparkResponse
 
+  case class SparkJobKillResponse(action: String,
+    message: String,
+    serverSparkVersion: String,
+    submissionId: String,
+    success: Boolean
+  ) extends SparkApiProtocol with SparkResponse
+
   case class Ok(driverId: String) extends SparkResponse
   case class Error(driverId: String) extends SparkResponse
 
   //Unmarshalling responses
   implicit val responseFormat = jsonFormat5(SparkJobSumissionResponse)
   implicit val jobStatusResponseFormat = jsonFormat8(SparkJobStatusResponse)
-
+  implicit val jobKillResponseFormat = jsonFormat5(SparkJobKillResponse)
 }
 

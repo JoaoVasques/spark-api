@@ -38,11 +38,13 @@ case class SparkApiStandlone(
 
   private val submitJobInteractor = new SubmitJobInteractor(apiRequest, master, apiVersion)
   private val jobStatusInteractor = new CheckJobStatusInteractor(apiRequest, master, apiVersion)
+  private val killJobInteractor = new KillJobInteractor(apiRequest, master, apiVersion)
+
 
   def submitJob(req: SubmitJob): Future[SparkJobSumissionResponse] = submitJobInteractor.call(req)
 
   def checkJobStatus(driverId: String): Future[SparkJobStatusResponse] = jobStatusInteractor.call(driverId)
 
-  def killJob(driverId: String): Future[SparkResponse] = ???
+  def killJob(driverId: String): Future[SparkResponse] = killJobInteractor.call(driverId)
 }
 
