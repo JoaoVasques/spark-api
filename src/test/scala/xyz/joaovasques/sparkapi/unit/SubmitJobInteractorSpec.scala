@@ -22,7 +22,6 @@ class SubmitJobInteractorSpec extends TestKit(ActorSystem("KillJobInteractorSpec
     with BeforeAndAfterAll {
 
   private val validJob = SubmitJob("Hello World", "com.example.TestBatchJob" ,Set(), dummyJobJarLocation, Map())
-  private val invalidJob = SubmitJob("invalid-name", "main-class", Set(), "no-jar", Map())
 
   private val interactor = new SubmitJobInteractor(apiRequest, masterIp)
 
@@ -33,15 +32,6 @@ class SubmitJobInteractorSpec extends TestKit(ActorSystem("KillJobInteractorSpec
       it("should be able to submit it") {
         val future = interactor.call(validJob).map(_.success)
         whenReady(future, Timeout(Span(5, Seconds))) { _ should be (true) }
-      }
-    }
-
-    describe("when having a non existing job") {
-      it("shouldn't be able to submit it") {
-        val future = interactor.call(invalidJob)
-        whenReady(future.future, timeout(5.seconds)) { e =>
-          e shouldBe an[Exception]
-        }
       }
     }
   }
