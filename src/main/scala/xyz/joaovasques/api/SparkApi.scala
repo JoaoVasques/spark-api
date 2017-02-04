@@ -21,30 +21,3 @@ private[actors] trait SparkApi {
   def checkJobStatus(driverId: String): Future[SparkJobStatusResponse]
   def killJob(driverId: String): Future[SparkResponse]
 }
-
-case class SparkApiStandlone(
-  master: String, apiVersion: String = "v1"
-)(implicit system: ActorSystem) extends SparkApi with JsonHelpers {
-
-  override val port = 6066
-  private implicit val materializer = ActorMaterializer()
-
-  private lazy val connectionFlow: Flow[HttpRequest, HttpResponse, Any] =
-    Http().outgoingConnection(master, port)
-
-  private def apiRequest(request: HttpRequest): Future[HttpResponse] =
-    Source.single(request).via(connectionFlow).runWith(Sink.head)
-
-
-  private val submitJobInteractor = new SubmitJobInteractor(apiRequest, master, apiVersion)
-  private val jobStatusInteractor = new CheckJobStatusInteractor(apiRequest, master, apiVersion)
-  private val killJobInteractor = new KillJobInteractor(apiRequest, master, apiVersion)
-
-
-  def submitJob(req: SubmitJob): Future[SparkJobSumissionResponse] = submitJobInteractor.call(req)
-
-  def checkJobStatus(driverId: String): Future[SparkJobStatusResponse] = jobStatusInteractor.call(driverId)
-
-  def killJob(driverId: String): Future[SparkResponse] = killJobInteractor.call(driverId)
-}
-

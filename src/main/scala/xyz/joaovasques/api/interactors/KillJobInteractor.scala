@@ -1,17 +1,15 @@
 package xyz.joaovasques.sparkapi.api
 
-import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import scala.concurrent.Future
-import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
+
 import akka.actor.ActorSystem
-import akka.http.scaladsl.unmarshalling.Unmarshal
-import akka.http.scaladsl.model.{ HttpHeader, ResponseEntity }
-import akka.http.scaladsl.model.HttpHeader.ParsingResult
 import akka.http.scaladsl.client.RequestBuilding
-import akka.http.scaladsl.model.{ ContentTypes, HttpEntity }
-import xyz.joaovasques.sparkapi.helpers._
-import akka.stream.ActorMaterializer
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpRequest, HttpResponse, ResponseEntity}
 import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.unmarshalling.Unmarshal
+import akka.stream.ActorMaterializer
+import xyz.joaovasques.sparkapi.helpers._
+import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 
 class KillJobInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
   val master: String, val apiVersion: String = "v1"

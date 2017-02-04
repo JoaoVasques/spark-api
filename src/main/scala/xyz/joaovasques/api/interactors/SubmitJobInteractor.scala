@@ -30,10 +30,11 @@ class SubmitJobInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
         for(unmarshalledResponse <- unmarshaller(response.entity)) yield {
           if(unmarshalledResponse.success)
             unmarshalledResponse
-          else throw new Exception("Job Failed")
+          else
+          throw new Exception("Job Failed")
         }
       case otherStatus =>
-        Future.failed(new Exception(s"Communicating with Spark: status code ${otherStatus}"))
+        throw new Exception(s"Communicating with Spark: status code ${otherStatus}")
     }
 
   def call(request: SubmitJob): Future[SparkJobSumissionResponse] = {

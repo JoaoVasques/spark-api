@@ -4,6 +4,7 @@ import scala.concurrent.Future
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.model.HttpHeader
 import akka.http.scaladsl.model.HttpHeader.ParsingResult
+
 trait Interactor[I,O] {
 
   val sparkApi: HttpRequest => Future[HttpResponse]
