@@ -10,15 +10,16 @@ val json = "3.4.2"
 
 // Change this to another test framework if you prefer
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "2.2.6" % "test",
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
   "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-core" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaVersion,
+  "org.scalatest"     %% "scalatest"         % "3.0.1" % "test",
   "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
   "org.json4s" %% "json4s-native" % json
 )
 
+parallelExecution in Test := false
