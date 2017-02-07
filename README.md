@@ -1,5 +1,7 @@
 # Spark API
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/10ab7014e35e476cb29be6c39e5069c4)](https://www.codacy.com/app/joaovasques_716/spark-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JoaoVasques/spark-api&amp;utm_campaign=Badge_Grade)
+
 ## Introduction
 
 
