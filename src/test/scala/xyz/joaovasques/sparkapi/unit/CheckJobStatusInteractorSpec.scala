@@ -3,21 +3,26 @@ package xyz.joaovasques.sparkapi.tests.unit
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
 import org.scalatest._
-import xyz.joaovasques.sparkapi.api.SubmitJobInteractor
+import org.scalatest.concurrent.ScalaFutures
+import xyz.joaovasques.sparkapi.api._
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.tests.helpers.InteractorHelpers
+import org.scalatest.concurrent.PatienceConfiguration.Timeout
+import org.scalatest.time._
 
 class CheckJobStatusInteractorSpec extends TestKit(ActorSystem("SubmitJobInteractorSpec"))
     with InteractorHelpers
     with FunSpecLike
     with RecoverMethods
+    with ScalaFutures
     with Matchers
     with BeforeAndAfterAll {
 
   private val validJob = SubmitJob("name", "main-class" ,Set(), "jar", Map())
   private val invalidJob = SubmitJob("invalid-name", "main-class", Set(), "no-jar", Map())
 
-  private val interactor = new SubmitJobInteractor(apiRequest, masterIp)
+  private val submitInteractor = new SubmitJobInteractor(apiRequest, masterIp)
+  private val checkStatusInteractor = new CheckJobStatusInteractor(apiRequest, masterIp)
 
   override def afterAll() = TestKit.shutdownActorSystem(system)
 
@@ -35,8 +40,17 @@ class CheckJobStatusInteractorSpec extends TestKit(ActorSystem("SubmitJobInterac
     }
 
     describe("when having a job that failed") {
-      it("should be able to get it's it's status as FAILED") {
-        pending
+      it("should be able to get it's it's status as ERROR") {
+        val submissionIdFuture = submitInteractor.call(invalidJob).map(_.submissionId)
+
+        Thread.sleep(2000)
+
+        val futureResult = for {
+          submissionId <- submissionIdFuture
+          status <- checkStatusInteractor.call(submissionId)
+        } yield status.driverState
+
+        whenReady(futureResult, Timeout(Span(5, Seconds))) { _ should be ("ERROR") }
       }
     }
   }

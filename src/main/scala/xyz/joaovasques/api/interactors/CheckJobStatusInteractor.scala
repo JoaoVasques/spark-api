@@ -23,8 +23,7 @@ class CheckJobStatusInteractor(val sparkApi: HttpRequest => Future[HttpResponse]
 
   private def handleSparkResponse(response: HttpResponse): Future[SparkJobStatusResponse] =
     response.status match {
-      case OK => println(response.entity)
-        unmarshaller(response.entity)
+      case OK => unmarshaller(response.entity)
       case otherStatus =>
         throw new Exception(s"Error Communicating with Spark. Status code ${otherStatus}")
     }
