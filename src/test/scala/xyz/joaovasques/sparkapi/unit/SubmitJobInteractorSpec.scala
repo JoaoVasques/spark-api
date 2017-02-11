@@ -7,10 +7,10 @@ import org.scalatest.concurrent._
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.AbstractPatienceConfiguration
 import org.scalatest.time._
-import xyz.joaovasques.sparkapi.api.SubmitJobInteractor
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.tests.helpers._
 import scala.concurrent._, duration._
+import xyz.joaovasques.sparkapi.api.standalone.interactors._
 
 class SubmitJobInteractorSpec extends TestKit(ActorSystem("KillJobInteractorSpec"))
     with InteractorHelpers

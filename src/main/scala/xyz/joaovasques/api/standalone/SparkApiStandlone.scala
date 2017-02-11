@@ -1,4 +1,4 @@
-package xyz.joaovasques.sparkapi.actors
+package xyz.joaovasques.sparkapi.api.standalone
 
 import scala.concurrent.Future
 
@@ -10,6 +10,7 @@ import akka.stream.scaladsl.{Flow, Sink, Source}
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.helpers._
 import xyz.joaovasques.sparkapi.api._
+import xyz.joaovasques.sparkapi.api.standalone.interactors._
 
 private[sparkapi] case class SparkApiStandlone(
   master: String, apiVersion: String = "v1"

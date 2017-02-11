@@ -1,9 +1,11 @@
-package xyz.joaovasques.sparkapi.actors
+package xyz.joaovasques.sparkapi.api.tests
 
 import akka.actor.{ ActorSystem, Props }
 import akka.testkit.{ ImplicitSender, TestKit }
 import org.scalatest._
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
+import xyz.joaovasques.sparkapi.api.standalone._
+import xyz.joaovasques.sparkapi.actors._
 
 class SparkApiStandloneSpec extends TestKit(ActorSystem("MySpec")) with ImplicitSender
     with FunSpecLike with Matchers {

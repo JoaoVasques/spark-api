@@ -3,9 +3,9 @@ package xyz.joaovasques.sparkapi.tests.unit
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
 import org.scalatest._
-import xyz.joaovasques.sparkapi.api.KillJobInteractor
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.tests.helpers.InteractorHelpers
+import xyz.joaovasques.sparkapi.api.standalone.interactors._
 
 class KillJobInteractorSpec extends TestKit(ActorSystem("KillJobInteractorSpec"))
     with InteractorHelpers

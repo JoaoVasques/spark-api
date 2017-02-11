@@ -1,6 +1,7 @@
 package xyz.joaovasques.sparkapi.actors
 
 import akka.actor.{ Actor, ActorLogging }
+import xyz.joaovasques.sparkapi.api.SparkApi
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages.{ JobStatus, KillJob, SubmitJob }
 import akka.pattern.pipe
 

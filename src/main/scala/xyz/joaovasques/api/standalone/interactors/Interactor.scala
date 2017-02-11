@@ -1,4 +1,4 @@
-package xyz.joaovasques.sparkapi.api
+package xyz.joaovasques.sparkapi.api.standalone.interactors
 
 import scala.concurrent.Future
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}

@@ -9,7 +9,15 @@ object SparkApiMessages extends SprayJsonSupport with DefaultJsonProtocol {
 
   //Requests
   trait SparkRequest extends SparkApiProtocol
-  case class SubmitJob(name: String, mainClass: String, arguments: Set[String], jarLocation: String, envVars: EnvVars) extends SparkRequest
+
+  case class SubmitJob(name: String,
+    mainClass: String,
+    arguments: Set[String],
+    jarLocation: String,
+    envVars: Map[String, String],
+    sparkProperties: Map[String, String] = Map()
+  ) extends SparkRequest
+
   case class JobStatus(driverId: String) extends SparkRequest
   case class KillJob(driverId: String) extends SparkRequest
 

@@ -1,4 +1,4 @@
-package xyz.joaovasques.sparkapi.api
+package xyz.joaovasques.sparkapi.api.standalone.interactors
 
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import scala.concurrent.Future
@@ -39,7 +39,7 @@ class SubmitJobInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
 
   def call(request: SubmitJob): Future[SparkJobSumissionResponse] = {
     val httpRequest = RequestBuilding.Post(endpoint,
-      HttpEntity(ContentTypes.`application/json`, generateSubmitJsonBody(request, master)))
+      HttpEntity(ContentTypes.`application/json`, generateSubmitJsonBody(request, master, request.envVars)))
       .addHeader(header)
 
     sparkApi(httpRequest) flatMap { handleSparkResponse(_) }

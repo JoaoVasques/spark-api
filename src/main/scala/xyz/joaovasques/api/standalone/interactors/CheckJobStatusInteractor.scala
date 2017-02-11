@@ -1,4 +1,4 @@
-package xyz.joaovasques.sparkapi.api
+package xyz.joaovasques.sparkapi.api.standalone.interactors
 
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import scala.concurrent.Future

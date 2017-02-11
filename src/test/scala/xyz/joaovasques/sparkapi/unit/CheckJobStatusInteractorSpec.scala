@@ -9,6 +9,7 @@ import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.tests.helpers.InteractorHelpers
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.time._
+import xyz.joaovasques.sparkapi.api.standalone.interactors._
 
 class CheckJobStatusInteractorSpec extends TestKit(ActorSystem("SubmitJobInteractorSpec"))
     with InteractorHelpers
