@@ -11,7 +11,7 @@ trait InteractorHelpers {
 
   implicit val system: ActorSystem
   implicit val ec = system.dispatcher
-  protected val masterIp = "JoaoVasquesMBP"
+  protected val masterIp = sys.env.getOrElse("SPARK_MASTER", "127.0.0.1")
   
   protected val port = 6066
   protected implicit val materializer = ActorMaterializer()

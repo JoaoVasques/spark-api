@@ -1,9 +1,8 @@
 # Spark API
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/10ab7014e35e476cb29be6c39e5069c4)](https://www.codacy.com/app/joaovasques_716/spark-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JoaoVasques/spark-api&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/10ab7014e35e476cb29be6c39e5069c4)](https://www.codacy.com/app/joaovasques_716/spark-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JoaoVasques/spark-api&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/JoaoVasques/spark-api.svg?branch=master)](https://travis-ci.org/JoaoVasques/spark-api)
 
 ## Introduction
-
 
 I use [Apache Spark](http://spark.apache.org/) a lot in my daily work but also on some personal experiments. I never liked how non-clear is the 
 process of submitting jobs to a Spark Cluster (in Standalone Mode). 

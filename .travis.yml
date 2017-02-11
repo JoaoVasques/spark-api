@@ -1,0 +1,25 @@
+language: scala
+scala:
+  - 2.11.8
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.4.2
+
+before_install:
+  - curl -sSL https://get.docker.com/ | sudo sh
+  - sudo pip install docker-compose
+  - docker-compose up -d master
+  - sleep 5
+  - docker-compose up -d worker
+
+script:
+  - docker-compose up tests
+
+after_script:
+  - docker rm $(docker ps -qa)
+

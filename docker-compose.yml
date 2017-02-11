@@ -1,6 +1,10 @@
 tests:
   build: .
-  command: bash -c "cd /app && activator test"
+  command: bash -c "activator test"
+  links:
+    - master:spark.master
+  environment:
+    - SPARK_MASTER=spark.master
 
 master:
   image: singularities/spark
