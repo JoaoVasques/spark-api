@@ -41,7 +41,8 @@ In order to submit a job to Spark you need to send a `SubmitJob` message to the 
 ```scala
 type EnvVars = Map[String, String]
 
-case class SubmitJob(name: String, mainClass: String, arguments: Set[String], jarLocation: String, envVars: EnvVars) extends SparkRequest```
+case class SubmitJob(name: String, mainClass: String, arguments: Set[String], jarLocation: String, envVars: EnvVars) extends SparkRequest
+```
 
 The following code snipet demonstrates how to submit a job to spark
 
