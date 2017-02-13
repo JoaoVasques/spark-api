@@ -2,6 +2,16 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/10ab7014e35e476cb29be6c39e5069c4)](https://www.codacy.com/app/joaovasques_716/spark-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JoaoVasques/spark-api&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/JoaoVasques/spark-api.svg?branch=master)](https://travis-ci.org/JoaoVasques/spark-api)
 
+## Installation
+
+Add the following lines to your `build.sbt` file.
+
+    resolvers += Resolver.jcenterRepo
+    
+    libraryDependencies += "xyz.joaovasques" %% "spark-api" % "0.1"
+    
+**Note:** Right now, only Scala 2.11 is supproted.
+
 ## Introduction
 
 I use [Apache Spark](http://spark.apache.org/) a lot in my daily work but also on some personal experiments. I never liked how non-clear is the 
