@@ -12,16 +12,17 @@ class SparkActor(sparkMaster: String, sparkApi: SparkApi) extends Actor with Act
 
   def active(jobs: Vector[String]): Receive = {
     case r: SubmitJob =>
-      val originaSender = sender
-      sparkApi.submitJob(r).map(_.submissionId) pipeTo originaSender
+      sparkApi.submitJob(r).map(result => Ok(result.submissionId)) pipeTo sender
 
     case JobStatus(driverId) =>
-      val originaSender = sender
-      sparkApi.checkJobStatus(driverId).map(_.driverState) pipeTo originaSender
+      sparkApi.checkJobStatus(driverId).map(_.driverState) pipeTo sender
 
     case KillJob(driverId) =>
-      val originaSender = sender
-      sparkApi.killJob(driverId).map(_.success) pipeTo originaSender
+      val futureResponse = sparkApi.killJob(driverId).map {response =>
+        if(response.success) Ok(response.submissionId) else Error(response.message)
+      }
+
+      futureResponse pipeTo sender
   }
 }
 
