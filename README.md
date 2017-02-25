@@ -2,26 +2,13 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/10ab7014e35e476cb29be6c39e5069c4)](https://www.codacy.com/app/joaovasques_716/spark-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JoaoVasques/spark-api&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/JoaoVasques/spark-api.svg?branch=master)](https://travis-ci.org/JoaoVasques/spark-api)
 
-## Installation
-
-Add the following lines to your `build.sbt` file.
-
-    resolvers += Resolver.jcenterRepo
-    
-    libraryDependencies += "xyz.joaovasques" %% "spark-api" % "0.1"
-    
-**Note:** Right now, only Scala 2.11 is supproted.
-
 ## Introduction
 
-I use [Apache Spark](http://spark.apache.org/) a lot in my daily work but also on some personal experiments. I never liked how non-clear is the 
-process of submitting jobs to a Spark Cluster (in Standalone Mode). 
+I use [Apache Spark](http://spark.apache.org/) a lot in my daily work but also on some personal experiments. 
 
-I decided to dig a little bit deeper into Spark and 
-discovered they have an internal REST API they are not exposing or documenting. This REST API is used on the 
-`spark-submit` shell script. 
+I build this library for people who use Akka (like myself) and would like to have an easy way to interact with Spark to submit, monitor and kill Spark Jobs without having to deploy a web server and interact with a REST API.
 
-Hope this serves you well.
+Hope this serves you well. Contributions are more than welcome.
 
 ## Features
 
@@ -63,19 +50,10 @@ val sparkActor = ....
 
 val request = SubmitJob("TestJob", "com.example.test", Set("--env", "test"), "s3n://...", Map())
 
-(sparkActor ? request).mapTo[SparkJobSumissionResponse]
+(sparkActor ? request).mapTo[SparkApiResponse]
 ```
 
-The actor returns a response class named `SparkJobSumissionResponse` that has the following signature.
-
-```scala
- case class SparkJobSumissionResponse(action: String,
-    message: String,
-    submissionId: String,
-    serverSparkVersion: String,
-    success: Boolean
-  ) extends SparkApiProtocol with SparkResponse
-```
+The actor returns a ```Ok(driverId: String)``` if successful and an exception otherwise.
 
 ### Check Job Status
 
@@ -95,21 +73,9 @@ val sparkActor = ....
 
 val request = JobStatus("driverid-20170302629")
 
-(sparkActor ? request).mapTo[SparkJobStatusResponse]
+(sparkActor ? request).mapTo[String]
 ```
 
-The actor returns a response class named `SparkJobStatusResponse ` that has the following signature.
-
-```scala
-  case class SparkJobStatusResponse(action: String,
-    driverState: String,
-    serverSparkVersion: String,
-    submissionId: String,
-    success: Boolean,
-    workerHostPort: Option[String],
-    workerId: Option[String]
-  ) extends SparkApiProtocol with SparkResponse
-```
 
 ### Kill a Job
 
@@ -129,18 +95,7 @@ val sparkActor = ....
 
 val request = KillJob("driverid-20170302629")
 
-(sparkActor ? request).mapTo[SparkJobKillResponse]
-```
-
-The actor returns a response class named `SparkJobKillResponse ` that has the following signature.
-
-```scala
-  case class SparkJobKillResponse(action: String,
-    message: String,
-    serverSparkVersion: String,
-    submissionId: String,
-    success: Boolean
-  ) extends SparkApiProtocol with SparkResponse
+(sparkActor ? request).mapTo[SparkApiResponse]
 ```
 
 ## Future work

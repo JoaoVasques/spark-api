@@ -40,7 +40,10 @@ object SparkActor {
   case class JobStatus(driverId: String) extends SparkRequest
   case class KillJob(driverId: String) extends SparkRequest
 
-  case class Ok(driverId: String)
-  case class Error(driverId: String)
+
+  trait SparkApiResponse
+
+  case class Ok(driverId: String) extends SparkApiResponse
+  case class Error(driverId: String) extends SparkApiResponse
 }
 
