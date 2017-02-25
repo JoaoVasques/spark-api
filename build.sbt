@@ -1,6 +1,8 @@
-name := """spark-api"""
+name := "spark-api"
 
-version := "1.0"
+version := "0.1"
+
+organization := "xyz.joaovasques"
 
 scalaVersion := "2.11.8"
 
@@ -41,3 +43,9 @@ libraryDependencies ++= Seq(
 )
 
 parallelExecution in Test := false
+
+// Publishing
+
+licenses := Seq("MIT" -> url("https://opensource.org/licenses/MIT"))
+
+bintrayPackageLabels := Seq("Apache Spark", "REST", "Akka", "Scala")
