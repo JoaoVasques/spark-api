@@ -12,6 +12,8 @@ import akka.http.scaladsl.model.{ ContentTypes, HttpEntity }
 import xyz.joaovasques.sparkapi.helpers._
 import akka.stream.ActorMaterializer
 import akka.http.scaladsl.model.StatusCodes._
+import xyz.joaovasques.sparkapi.exceptions.SparkApiExceptions._
+import xyz.joaovasques.sparkapi.actors.SparkActor._
 
 class SubmitJobInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
   val master: String, val apiVersion: String = "v1"
@@ -31,10 +33,10 @@ class SubmitJobInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
           if(unmarshalledResponse.success)
             unmarshalledResponse
           else
-          throw new Exception("Job Failed")
+          throw JobSubmissionFailedException()
         }
       case otherStatus =>
-        throw new Exception(s"Communicating with Spark: status code ${otherStatus}")
+        throw new SparkCommunicationException(otherStatus.intValue)
     }
 
   def call(request: SubmitJob): Future[SparkJobSumissionResponse] = {

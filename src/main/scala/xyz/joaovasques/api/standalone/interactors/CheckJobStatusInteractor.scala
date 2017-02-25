@@ -10,6 +10,7 @@ import akka.http.scaladsl.client.RequestBuilding
 import xyz.joaovasques.sparkapi.helpers._
 import akka.stream.ActorMaterializer
 import akka.http.scaladsl.model.StatusCodes._
+import xyz.joaovasques.sparkapi.actors.SparkActor._
 
 class CheckJobStatusInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
   val master: String, val apiVersion: String = "v1"

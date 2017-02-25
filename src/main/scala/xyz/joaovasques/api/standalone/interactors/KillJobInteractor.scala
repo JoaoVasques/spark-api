@@ -10,6 +10,7 @@ import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import xyz.joaovasques.sparkapi.helpers._
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
+import xyz.joaovasques.sparkapi.actors.SparkActor._
 
 class KillJobInteractor(val sparkApi: HttpRequest => Future[HttpResponse],
   val master: String, val apiVersion: String = "v1"

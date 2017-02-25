@@ -11,6 +11,7 @@ import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.helpers._
 import xyz.joaovasques.sparkapi.api._
 import xyz.joaovasques.sparkapi.api.standalone.interactors._
+import xyz.joaovasques.sparkapi.actors.SparkActor._
 
 private[sparkapi] case class SparkApiStandlone(
   master: String, apiVersion: String = "v1"
@@ -35,6 +36,6 @@ private[sparkapi] case class SparkApiStandlone(
 
   def checkJobStatus(driverId: String): Future[SparkJobStatusResponse] = jobStatusInteractor.call(driverId)
 
-  def killJob(driverId: String): Future[SparkResponse] = killJobInteractor.call(driverId)
+  def killJob(driverId: String): Future[SparkJobKillResponse] = killJobInteractor.call(driverId)
 }
 

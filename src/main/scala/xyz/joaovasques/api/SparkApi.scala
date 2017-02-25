@@ -9,6 +9,7 @@ import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import xyz.joaovasques.sparkapi.helpers._
+import xyz.joaovasques.sparkapi.actors.SparkActor._
 
 trait SparkApi {
 
@@ -18,5 +19,6 @@ trait SparkApi {
 
   def submitJob(request: SubmitJob): Future[SparkJobSumissionResponse]
   def checkJobStatus(driverId: String): Future[SparkJobStatusResponse]
-  def killJob(driverId: String): Future[SparkResponse]
+  def killJob(driverId: String): Future[SparkJobKillResponse]
 }
+

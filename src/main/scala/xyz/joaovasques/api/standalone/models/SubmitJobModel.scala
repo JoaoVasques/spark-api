@@ -2,6 +2,7 @@ package xyz.joaovasques.sparkapi.api.standalone.models
 
 import xyz.joaovasques.sparkapi.messages.SparkApiMessages._
 import io.circe._, io.circe.generic.auto._, io.circe.parser._, io.circe.syntax._
+import xyz.joaovasques.sparkapi.actors.SparkActor.SubmitJob
 
 case class SubmitJobModel(
   action: String,
