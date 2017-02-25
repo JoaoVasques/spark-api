@@ -10,6 +10,16 @@ I build this library for people who use Akka (like myself) and would like to hav
 
 Hope this serves you well. Contributions are more than welcome.
 
+## Instalation
+
+To use just add to your `build.sbt`
+
+```
+resolvers += Resolver.jcenterRepo
+
+libraryDependencies+= "xyz.joaovasques" % "spark-api_2.11" % "0.2"
+```
+
 ## Features
 
 The main purpose of this library is to simplify the management of Spark Jobs. Currently, only Standalone Cluster mode is supported. The current version of this library supports the following operations
@@ -35,7 +45,6 @@ def getStandaloneGateway(sparkMaster: String)(implicit system: ActorSystem): Act
 In order to submit a job to Spark you need to send a `SubmitJob` message to the spark actor. 
 
 ```scala
-type EnvVars = Map[String, String]
 
 case class SubmitJob(name: String, mainClass: String, arguments: Set[String], jarLocation: String, envVars: EnvVars) extends SparkRequest
 ```
