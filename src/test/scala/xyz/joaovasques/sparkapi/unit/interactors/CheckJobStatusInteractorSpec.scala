@@ -43,7 +43,7 @@ class CheckJobStatusInteractorSpec extends TestKit(ActorSystem("SubmitJobInterac
       it("should be able to get it's it's status as ERROR") {
         val submissionIdFuture = submitInteractor.call(invalidJob).map(_.submissionId)
 
-        Thread.sleep(2000)
+        Thread.sleep(5000)
 
         val futureResult = for {
           submissionId <- submissionIdFuture
