@@ -14,10 +14,20 @@ Hope this serves you well. Contributions are more than welcome.
 
 To use just add to your `build.sbt`
 
+For Scala 2.11.x
+
 ```
 resolvers += Resolver.jcenterRepo
 
-libraryDependencies+= "xyz.joaovasques" % "spark-api_2.11" % "0.2"
+libraryDependencies+= "xyz.joaovasques" %% "spark-api" % "0.2"
+```
+
+For Scala 2.12.x
+
+```
+resolvers += Resolver.jcenterRepo
+
+libraryDependencies+= "xyz.joaovasques" %% "spark-api" % "0.3"
 ```
 
 ## Features
